@@ -164,7 +164,7 @@ export default function HomeScreen({ navigation }) {
           {/* Titre et date */}
           <View style={styles.headerTop}>
             <View>
-              <Text style={styles.greeting}>Prêt pour aujourd'hui ? 1X fois chétté ! 🚀 
+              <Text style={styles.greeting}>Prêt pour aujourd'hui ? 1X fois chétté ! 🚀 N'oublie pas aussi que son concert est le 28 mai heinnnn
                 
               </Text>
               <Text style={styles.dateText}>{todayStr}</Text>
