@@ -1,14 +1,14 @@
 /**
- * 🃏 HabitCard - Carte d'une habitude
+ * ðŸƒ HabitCard - Carte d'une habitude
  * 
- * Composant réutilisable qui affiche une habitude.
+ * Composant rÃ©utilisable qui affiche une habitude.
  * 
  * Concepts appris ici :
- * - Composants réutilisables (les briques de base de React)
- * - Props : données passées depuis le parent
- * - Animated.Value : valeur numérique animable
+ * - Composants rÃ©utilisables (les briques de base de React)
+ * - Props : donnÃ©es passÃ©es depuis le parent
+ * - Animated.Value : valeur numÃ©rique animable
  * - Spring animation : animation avec effet de ressort
- * - Swipe pour supprimer (via PanResponder simplifié)
+ * - Swipe pour supprimer (via PanResponder simplifiÃ©)
  */
 
 import React, { useRef, useEffect, useState } from 'react';
@@ -31,26 +31,28 @@ const { width } = Dimensions.get('window');
 export default function HabitCard({ habit, index }) {
   const { toggleToday, deleteHabit, isDoneToday, getStreak, getWeeklyRate } = useHabits();
   const done = isDoneToday(habit);
+  const habitColor = habit.color || COLORS.primary;
+  const habitEmoji = habit.emoji || '💪';
   const streak = getStreak(habit);
   const weeklyRate = getWeeklyRate(habit);
 
-  // 🎞️ Animations
-  const scaleAnim = useRef(new Animated.Value(0)).current;    // Entrée de la carte
+  // ðŸŽžï¸ Animations
+  const scaleAnim = useRef(new Animated.Value(0)).current;    // EntrÃ©e de la carte
   const checkAnim = useRef(new Animated.Value(done ? 1 : 0)).current; // Coche
   const glowAnim = useRef(new Animated.Value(0)).current;     // Effet lumineux
 
-  // Animation d'entrée avec délai selon l'index (effet cascadé)
+  // Animation d'entrÃ©e avec dÃ©lai selon l'index (effet cascadÃ©)
   useEffect(() => {
     Animated.spring(scaleAnim, {
       toValue: 1,
       tension: 80,
       friction: 8,
-      delay: index * 80, // Chaque carte entre avec 80ms de décalage
+      delay: index * 80, // Chaque carte entre avec 80ms de dÃ©calage
       useNativeDriver: true,
     }).start();
   }, []);
 
-  // Synchroniser l'animation de coche avec l'état
+  // Synchroniser l'animation de coche avec l'Ã©tat
   useEffect(() => {
     Animated.spring(checkAnim, {
       toValue: done ? 1 : 0,
@@ -60,7 +62,7 @@ export default function HabitCard({ habit, index }) {
     }).start();
 
     if (done) {
-      // Animation de lueur quand complété
+      // Animation de lueur quand complÃ©tÃ©
       Animated.sequence([
         Animated.timing(glowAnim, { toValue: 1, duration: 300, useNativeDriver: false }),
         Animated.timing(glowAnim, { toValue: 0, duration: 500, useNativeDriver: false }),
@@ -68,20 +70,20 @@ export default function HabitCard({ habit, index }) {
     }
   }, [done]);
 
-  // ✅ Gérer le tap sur la carte
+  // âœ… GÃ©rer le tap sur la carte
   const handleToggle = async () => {
-    // 📳 Vibration tactile (feedback haptique)
+    // ðŸ“³ Vibration tactile (feedback haptique)
     await Haptics.impactAsync(
       done ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Medium
     );
     toggleToday(habit.id);
   };
 
-  // 🗑️ Confirmer la suppression
+  // ðŸ—‘ï¸ Confirmer la suppression
   const handleDelete = () => {
     Alert.alert(
       'Supprimer cette habitude ?',
-      `"${habit.name}" sera supprimée définitivement.`,
+      `"${habit.name}" sera supprimÃ©e dÃ©finitivement.`,
       [
         { text: 'Annuler', style: 'cancel' },
         {
@@ -93,7 +95,7 @@ export default function HabitCard({ habit, index }) {
     );
   };
 
-  // 📅 Mini-calendrier des 7 derniers jours pour cette habitude
+  // ðŸ“… Mini-calendrier des 7 derniers jours pour cette habitude
   const MiniWeek = () => {
     const days = [];
     for (let i = 6; i >= 0; i--) {
@@ -112,7 +114,7 @@ export default function HabitCard({ habit, index }) {
             key={i}
             style={[
               styles.miniDot,
-              day.isCompleted && { backgroundColor: habit.color },
+              day.isCompleted && { backgroundColor: habitColor },
               day.isToday && styles.miniDotToday,
             ]}
           />
@@ -141,15 +143,15 @@ export default function HabitCard({ habit, index }) {
         activeOpacity={0.85}
         delayLongPress={600}
       >
-        {/* Trait de couleur à gauche */}
-        <View style={[styles.colorBar, { backgroundColor: habit.color }]} />
+        {/* Trait de couleur Ã  gauche */}
+        <View style={[styles.colorBar, { backgroundColor: habitColor }]} />
 
         {/* Contenu principal */}
         <View style={styles.cardContent}>
           {/* Ligne du haut : emoji + nom + bouton check */}
           <View style={styles.cardTop}>
             <View style={styles.habitInfo}>
-              <Text style={styles.habitEmoji}>{habit.emoji}</Text>
+              <Text style={styles.habitEmoji}>{habitEmoji}</Text>
               <View style={styles.habitTexts}>
                 <Text
                   style={[styles.habitName, done && styles.habitNameDone]}
@@ -172,16 +174,16 @@ export default function HabitCard({ habit, index }) {
               </View>
             </View>
 
-            {/* Bouton de complétion animé */}
+            {/* Bouton de complÃ©tion animÃ© */}
             <Animated.View
               style={[
                 styles.checkButton,
                 {
                   backgroundColor: checkAnim.interpolate({
                     inputRange: [0, 1],
-                    outputRange: ['transparent', habit.color],
+                    outputRange: ['rgba(0,0,0,0)', habitColor],
                   }),
-                  borderColor: habit.color,
+                  borderColor: habitColor,
                   transform: [{
                     scale: checkAnim.interpolate({
                       inputRange: [0, 0.5, 1],
@@ -303,3 +305,4 @@ const styles = StyleSheet.create({
     borderColor: COLORS.textSecondary,
   },
 });
+
