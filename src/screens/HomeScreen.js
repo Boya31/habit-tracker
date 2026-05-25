@@ -22,6 +22,7 @@ import {
   Animated,
   StatusBar,
   Dimensions,
+  Image,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -62,7 +63,7 @@ export default function HomeScreen({ navigation }) {
 
   // 🎨 Message motivant selon le pourcentage
   const getMotivation = () => {
-    if (totalCount === 0) return 'Ajoute ta première habitude ! 🚀';
+    if (totalCount === 0) return 'Ajoute ta première habitude chapp ! 🚀';
     if (percentage === 100) return 'Parfait ! Toutes tes habitudes sont faites ! 🔥';
     if (percentage >= 75) return 'Excellent ! Continue comme ça ! 💪';
     if (percentage >= 50) return 'Bien ! Plus que quelques efforts ! ⭐';
@@ -161,13 +162,17 @@ export default function HomeScreen({ navigation }) {
           colors={['#1A1A2E', '#16213E', '#0F0F1A']}
           style={styles.header}
         >
-          {/* Titre et date */}
+          {/* Titre, logo et date */}
           <View style={styles.headerTop}>
-            <View>
-              <Text style={styles.greeting}>Prêt pour aujourd'hui ? 🚀
-                
-              </Text>
-              <Text style={styles.dateText}>{todayStr}</Text>
+            <View style={styles.branding}>
+              <Image
+                source={require('../../assets/icon1.png')}
+                style={styles.logo}
+              />
+              <View style={styles.titleGroup}>
+                <Text style={styles.greeting}>Prêt pour aujourd'hui ? 🚀</Text>
+                <Text style={styles.dateText}>{todayStr}</Text>
+              </View>
             </View>
             <TouchableOpacity
               style={styles.addButton}
@@ -276,6 +281,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginBottom: 12,
+  },
+  branding: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  logo: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    marginRight: 12,
+    borderWidth: 1,
+    borderColor: COLORS.primaryLight,
+    backgroundColor: COLORS.card,
+  },
+  titleGroup: {
+    flexShrink: 1,
   },
   greeting: {
     fontSize: 26,
