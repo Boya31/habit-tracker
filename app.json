@@ -23,7 +23,14 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/icon1.png"
-    }
+      "favicon": "./assets/icon1.png",
+      "name": "Habit Tracker",
+      "shortName": "Habits",
+      "themeColor": "#1A1A2E",
+      "backgroundColor": "#1A1A2E"
+    },
+    "plugins": [
+      "expo-web-browser"
+    ]
   }
 }
