@@ -28,6 +28,13 @@
       "shortName": "Habits",
       "themeColor": "#1A1A2E",
       "backgroundColor": "#1A1A2E"
+<<<<<<< HEAD
     }
+=======
+    },
+    "plugins": [
+      "expo-web-browser"
+    ]
+>>>>>>> 95ccdd0256a3599d817b623d8660a71b870fd9d9
   }
 }
