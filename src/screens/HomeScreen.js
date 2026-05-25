@@ -63,7 +63,7 @@ export default function HomeScreen({ navigation }) {
 
   // 🎨 Message motivant selon le pourcentage
   const getMotivation = () => {
-    if (totalCount === 0) return 'Ajoute ta première habitude ! 🚀';
+    if (totalCount === 0) return 'Ajoute ta première habitude chapp ! 🚀';
     if (percentage === 100) return 'Parfait ! Toutes tes habitudes sont faites ! 🔥';
     if (percentage >= 75) return 'Excellent ! Continue comme ça ! 💪';
     if (percentage >= 50) return 'Bien ! Plus que quelques efforts ! ⭐';
