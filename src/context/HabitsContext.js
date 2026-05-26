@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ðŸ§  HabitsContext - Le "cerveau" de l'application
  * 
  * Maintenant connectÃ© Ã  Supabase â˜ï¸

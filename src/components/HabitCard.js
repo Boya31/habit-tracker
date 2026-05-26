@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ðŸƒ HabitCard - Carte d'une habitude
  * 
  * Composant rÃ©utilisable qui affiche une habitude.
